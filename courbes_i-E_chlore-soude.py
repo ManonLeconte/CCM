@@ -4,9 +4,17 @@ import matplotlib.pyplot as plt
 
 """
 Tracé des courbes intensité-potentiel pour le procédé chlore-soude
+Manon Leconte
 """
 
 #Données issues des Techniques de l'ingénieur, J4804 v1
+
+
+#%%Couleurs
+
+bleuvert=(0,.5,.5)
+violet=(.5,0,.5)
+jaunefonce=(.5,.5,0)
 
 #%% Définition des constantes
 
@@ -84,28 +92,41 @@ i_cat2=np.zeros(n2)
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-plt.grid()
 plt.title("Courbes intensité-potentiel pour le procédé chlore-soude")
 plt.xlabel("Potentiel E (V)")
 plt.ylabel("Intensité du courant i (A)")
 plt.xlim(-1.5,2.5)
 plt.ylim(-300,300)
-plt.text(E_an,-30,'$E_{an}$ = 1,31 V', horizontalalignment = 'center', verticalalignment = 'center')
-plt.axvline(x = E_an, ymin = 0, ymax  = 0.5,color ='gray',ls='--',lw=0.1)
-plt.text(E_cat,-30,'$E_{cat}$ = -0,27 V', horizontalalignment = 'center', verticalalignment = 'center')
-plt.axvline(x = E_cat, ymin = 0, ymax  = 0.5,color ='gray',ls='--',lw=0.1)
-plt.text(1.65,150,'Cl$^-$ -> Cl$_2$', horizontalalignment = 'center', verticalalignment = 'center')
+#Anode
+plt.text(E_an,-30,'$E_{an,th}$', horizontalalignment = 'center', verticalalignment = 'center')
+plt.arrow(E_an,-5,dx=0,dy=10,ec='k')
+plt.arrow(x=E_an,y=20,dx=.2,dy=0,head_width=10,head_length=.1,fc=jaunefonce,ec=jaunefonce)
+plt.text(1.4,40,'$\eta_a$', horizontalalignment = 'center', verticalalignment = 'center',color=jaunefonce)
+plt.text(1.65,150,'Cl$^-\longrightarrow$ Cl$_2$', horizontalalignment = 'center', verticalalignment = 'center')
+#Cathode
+plt.text(E_cat,-30,'$E_{cat,th}$', horizontalalignment = 'center', verticalalignment = 'center')
+plt.arrow(E_cat,-5,dx=0,dy=10,ec='k')
+plt.arrow(x=E_cat,y=20,dx=-.6,dy=0,head_width=10,head_length=.1,fc=jaunefonce,ec=jaunefonce)
+plt.text(-.6,40,'$\eta_c$', horizontalalignment = 'center', verticalalignment = 'center',color=jaunefonce)
 plt.text(-1,-150,'H$_2\leftarrow$ H$^{+}$', horizontalalignment = 'center', verticalalignment = 'center')
+#Tension à imposer
+plt.arrow(x=-.8,y=-60,dx=2.3,dy=0,head_width=10,head_length=.1,fc=jaunefonce,ec=jaunefonce)
+plt.arrow(x=1.5,y=-60,dx=-2.35,dy=0,head_width=10,head_length=.1,fc=jaunefonce,ec=jaunefonce)
+plt.text(.5,-90,'$E_{cat}-E_{an}$',color=jaunefonce)
+
+#Axe des ordonnées
+plt.axvline(x=0,color='k')
 
 #Pour l'anode :
-plt.plot(E0,i_an0,'g')
-plt.plot(E1,i_an1,'g')
-plt.plot(E2,i_an2,color="g",label="à l'anode")
+plt.plot(E0,i_an0,color=violet)
+plt.plot(E1,i_an1,color=violet)
+plt.plot(E2,i_an2,color=violet,label="à l'anode")
 
 #Pour la cathode :
-plt.plot(E0,i_cat0,'b',label="à la cathode de cuivre")
-plt.plot(E1,i_cat1,'b')
-plt.plot(E2,i_cat2,'b')
+plt.plot(E0,i_cat0,color=bleuvert,label="à la cathode")
+plt.plot(E1,i_cat1,color=bleuvert)
+plt.plot(E2,i_cat2,color=bleuvert)
+
 
 plt.legend()
 plt.show()
